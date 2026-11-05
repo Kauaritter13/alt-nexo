@@ -1,0 +1,442 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import '@xyflow/react/dist/style.css';
+@import '@xterm/xterm/css/xterm.css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /*
+   * Design system ALt. (SaaS/apps/web/src/app/globals.css §16.5): neutros quase-preto
+   * esverdeado → creme, uma única cor de ação (limão) que também é a identidade de IA.
+   * Escuro é o padrão; o claro inverte só estes tokens.
+   */
+  --radius: 10px;
+  --background: #0c0d0b; /* n0 */
+  --foreground: #f3efe0; /* n9 */
+  --panel: #141511; /* n1 */
+  --card: #141511;
+  --card-foreground: #f3efe0;
+  --popover: #1b1c17; /* n2 */
+  --popover-foreground: #f3efe0;
+  --primary: #c9f24c; /* limão da marca */
+  --primary-hover: #d8f76e;
+  --primary-foreground: #0c0d0b;
+  --secondary: #1b1c17;
+  --secondary-foreground: #f3efe0;
+  --muted: #1b1c17;
+  --muted-foreground: #aba895; /* n8 */
+  --faint: #8f8c7c; /* n7 */
+  --accent: #22231d; /* n3 */
+  --accent-foreground: #f3efe0;
+  --destructive: #f2685f;
+  --border: #2a2b24; /* n4 */
+  --input: #363730; /* n5 */
+  --ring: #c9f24c;
+  --grid: #2a2b24;
+  /* Identidade de agente/IA (✦ no ALt.) — usada nos nós do Claude Code. */
+  --claude: #c9f24c;
+  --claude-foreground: #0c0d0b;
+  --ai-soft: #2a2e1b;
+  --success: #3fb984;
+  --warning: #e0a83c;
+  /* Tons decorativos do ALt. (etapas do funil) reaproveitados nas conexões e notas. */
+  --tone-1: #6ea8fe;
+  --tone-2: #b892f2;
+  --tone-3: #4fd1c5;
+  --tone-4: #f28fb0;
+  --edge-reference: #8f8c7c;
+  --edge-context: var(--tone-1);
+  --edge-dependency: var(--warning);
+  --edge-sequential: var(--primary);
+  --edge-parallel: var(--tone-3);
+  /* Terminal permanece escuro nos dois temas. */
+  --term-bg: #0c0d0b;
+  --overlay: rgb(12 13 11 / 0.7);
+  --shadow-panel: 0 8px 28px -8px rgb(0 0 0 / 0.6);
+  --shadow-raise: 0 3px 12px -4px rgb(0 0 0 / 0.35);
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  color-scheme: dark;
+}
+
+/* Tema claro ALt.: papel creme, tinta quase-preta, limão desce para oliva (AA como texto). */
+:root[data-theme='light'] {
+  --background: #efebdd;
+  --foreground: #1a1a14;
+  --panel: #faf8ef;
+  --card: #faf8ef;
+  --card-foreground: #1a1a14;
+  --popover: #faf8ef;
+  --popover-foreground: #1a1a14;
+  --primary: #5f7314;
+  --primary-hover: #526310;
+  --primary-foreground: #faf8ef;
+  --secondary: #e7e3d3;
+  --secondary-foreground: #1a1a14;
+  --muted: #e7e3d3;
+  --muted-foreground: #5c5949;
+  --faint: #7a7663;
+  --accent: #dfdbc9;
+  --accent-foreground: #1a1a14;
+  --destructive: #bf2f27;
+  --border: #d3ceba;
+  --input: #bfb9a2;
+  --ring: #5f7314;
+  --grid: #c9c4ae;
+  --claude: #5f7314;
+  --claude-foreground: #faf8ef;
+  --ai-soft: #e9f2c8;
+  --success: #0f7052;
+  --warning: #8a5d08;
+  --tone-1: #2f5fd1;
+  --tone-2: #7a4fc9;
+  --tone-3: #0f8a7d;
+  --tone-4: #c94a72;
+  --edge-reference: #7a7663;
+  --overlay: rgb(239 235 221 / 0.75);
+  --shadow-panel: 0 8px 24px -10px rgb(25 29 35 / 0.18);
+  --shadow-raise: 0 3px 10px -4px rgb(25 29 35 / 0.14);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-panel: var(--panel);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-claude: var(--claude);
+  --color-claude-foreground: var(--claude-foreground);
+  --color-ai-soft: var(--ai-soft);
+  --color-faint: var(--faint);
+  --color-primary-hover: var(--primary-hover);
+  --color-tone-1: var(--tone-1);
+  --color-tone-2: var(--tone-2);
+  --color-tone-3: var(--tone-3);
+  --color-tone-4: var(--tone-4);
+  --color-term: var(--term-bg);
+  --shadow-panel: var(--shadow-panel);
+  --shadow-raise: var(--shadow-raise);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: var(--radius);
+  --radius-xl: 14px;
+  --font-sans: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Cascadia Code', 'JetBrains Mono', Consolas, 'SF Mono', monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/40;
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    overflow: hidden;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 35%, transparent);
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--input);
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+/* ───────── React Flow ───────── */
+.react-flow {
+  --xy-background-color: var(--background);
+  --xy-node-border-radius: 12px;
+  --xy-selection-background-color: color-mix(in oklab, var(--primary) 8%, transparent);
+  --xy-selection-border: 1px dashed color-mix(in oklab, var(--primary) 60%, transparent);
+  --xy-minimap-background-color: var(--panel);
+  --xy-minimap-mask-background-color: var(--overlay);
+  --xy-controls-button-background-color: var(--card);
+  --xy-controls-button-background-color-hover: var(--accent);
+  --xy-controls-button-color: var(--muted-foreground);
+  --xy-controls-button-border-color: var(--border);
+  --xy-handle-background-color: var(--card);
+  --xy-handle-border-color: var(--input);
+  --xy-attribution-background-color: transparent;
+}
+.react-flow__node {
+  border-radius: 12px;
+}
+.react-flow__node.selected > .nexo-node {
+  box-shadow:
+    0 0 0 1.5px color-mix(in oklab, var(--primary) 85%, transparent),
+    var(--shadow-panel);
+}
+.react-flow__handle {
+  width: 10px;
+  height: 10px;
+  border-width: 1.5px;
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease;
+  opacity: 0;
+}
+.react-flow__node:hover .react-flow__handle,
+.react-flow__node.selected .react-flow__handle,
+.react-flow.connecting .react-flow__handle {
+  opacity: 1;
+}
+.react-flow__handle:hover {
+  transform: translate(var(--tw-translate-x, 0), var(--tw-translate-y, 0)) scale(1.35);
+  background: var(--primary);
+}
+.react-flow__handle-left {
+  --tw-translate-y: -50%;
+}
+.react-flow__handle-right {
+  --tw-translate-y: -50%;
+}
+.react-flow__handle-top {
+  --tw-translate-x: -50%;
+}
+.react-flow__handle-bottom {
+  --tw-translate-x: -50%;
+}
+.react-flow__resize-control.handle {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--primary);
+  border: none;
+}
+.react-flow__resize-control.line {
+  border-color: transparent;
+}
+.react-flow__minimap {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.react-flow__controls {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+.react-flow__edge.selected .nexo-edge-path {
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 6px currentColor);
+}
+.react-flow__connectionline path {
+  stroke: var(--primary);
+  stroke-dasharray: 5 6;
+  stroke-width: 2;
+}
+
+@keyframes nexo-dash {
+  to {
+    stroke-dashoffset: -22;
+  }
+}
+.nexo-edge-active {
+  animation: nexo-dash 0.7s linear infinite;
+}
+
+@keyframes nexo-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.85);
+  }
+}
+.nexo-pulse {
+  animation: nexo-pulse 1.4s ease-in-out infinite;
+}
+
+/* ───────── xterm ───────── */
+.nexo-term .xterm {
+  height: 100%;
+  padding: 8px 4px 4px 10px;
+}
+.nexo-term .xterm-viewport {
+  background-color: transparent !important;
+}
+.nexo-term .xterm-viewport::-webkit-scrollbar-thumb {
+  background-color: #363730;
+}
+
+/* Markdown em notas e arquivos */
+.nexo-md {
+  line-height: 1.6;
+}
+.nexo-md h1 {
+  font-size: 1.35em;
+  font-weight: 650;
+  margin: 0.2em 0 0.5em;
+}
+.nexo-md h2 {
+  font-size: 1.15em;
+  font-weight: 600;
+  margin: 0.8em 0 0.4em;
+}
+.nexo-md h3 {
+  font-weight: 600;
+  margin: 0.7em 0 0.3em;
+}
+.nexo-md p {
+  margin: 0.4em 0;
+}
+.nexo-md ul {
+  list-style: disc;
+  padding-left: 1.3em;
+}
+.nexo-md ol {
+  list-style: decimal;
+  padding-left: 1.3em;
+}
+.nexo-md code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: color-mix(in oklab, var(--foreground) 8%, transparent);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+.nexo-md pre {
+  background: color-mix(in oklab, var(--background) 70%, transparent);
+  padding: 0.7em 0.9em;
+  border-radius: 8px;
+  overflow: auto;
+  margin: 0.5em 0;
+}
+.nexo-md pre code {
+  background: none;
+  padding: 0;
+}
+.nexo-md a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+.nexo-md input[type='checkbox'] {
+  margin-right: 0.4em;
+}
+.nexo-md blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 0.8em;
+  color: var(--muted-foreground);
+}
+.nexo-md table {
+  border-collapse: collapse;
+}
+.nexo-md td,
+.nexo-md th {
+  border: 1px solid var(--border);
+  padding: 0.2em 0.5em;
+}
+
+/* Movimento ALt. (§16.5): uma curva de saída; só transform/opacity. */
+@keyframes alt-enter {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+}
+.alt-enter {
+  animation: alt-enter 0.26s var(--ease-out) both;
+}
+
+/* ───────── Nexinho (mascote) ───────── */
+.nexinho svg g {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+.nexinho .nexinho-eyes {
+  transform-origin: center;
+  animation: nexinho-blink 4.2s infinite;
+}
+@keyframes nexinho-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+.nexinho-idle .nexinho-body,
+.nexinho-sleep .nexinho-body {
+  animation: nexinho-breathe 3.2s ease-in-out infinite;
+}
+@keyframes nexinho-breathe {
+  50% { transform: scaleY(0.95); }
+}
+.nexinho-sleep .nexinho-eyes { animation: none; }
+.nexinho-sleep .nexinho-antenna { opacity: 0.5; }
+.nexinho-z { animation: nexinho-z 2.4s ease-out infinite; }
+@keyframes nexinho-z {
+  0% { opacity: 0; transform: translate(0, 4px); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translate(4px, -6px); }
+}
+.nexinho-working .nexinho-body { animation: nexinho-bob 0.5s ease-in-out infinite; }
+.nexinho-working .nexinho-eyes { animation: nexinho-look 2.4s steps(1) infinite; }
+.nexinho-working .nexinho-leg-l { animation: nexinho-step 0.5s steps(1) infinite; }
+.nexinho-working .nexinho-leg-r { animation: nexinho-step 0.5s steps(1) infinite 0.25s; }
+.nexinho-working .nexinho-antenna { animation: nexinho-glow 0.9s ease-in-out infinite; }
+@keyframes nexinho-bob {
+  50% { transform: translateY(-0.5px); }
+}
+@keyframes nexinho-look {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-1px); }
+  50% { transform: translateX(0); }
+  75% { transform: translateX(1px); }
+}
+@keyframes nexinho-step {
+  50% { transform: translateY(-1px); }
+}
+@keyframes nexinho-glow {
+  50% { fill: var(--claude); }
+}
+.nexinho-waiting .nexinho-body { animation: nexinho-hop 0.9s ease-in-out infinite; }
+.nexinho-waiting .nexinho-alert { animation: nexo-pulse 0.9s ease-in-out infinite; }
+@keyframes nexinho-hop {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-1.5px); }
+}
+.nexinho-happy .nexinho-body,
+.nexinho-happy .nexinho-leg-l,
+.nexinho-happy .nexinho-leg-r { animation: nexinho-jump 0.7s cubic-bezier(0.3, 0.7, 0.4, 1) 2; }
+@keyframes nexinho-jump {
+  40% { transform: translateY(-3px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nexinho *, .nexinho { animation: none !important; }
+}

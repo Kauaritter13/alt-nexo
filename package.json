@@ -1,0 +1,22 @@
+{
+  "name": "alt-nexo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ALt.nexo — IDE visual orientada a agentes: canvas infinito + instâncias reais do Claude Code",
+  "workspaces": ["packages/*", "apps/*"],
+  "scripts": {
+    "dev": "concurrently -n runtime,web -c magenta,cyan \"npm:dev:runtime\" \"npm:dev:web\"",
+    "dev:runtime": "npm run dev -w @nexo/runtime",
+    "dev:web": "npm run dev -w @nexo/web",
+    "dev:desktop": "npm run build -w @nexo/web && npm run dev -w @nexo/desktop",
+    "build": "npm run build -w @nexo/web && npm run build -w @nexo/runtime",
+    "start": "npm run build && npm run start -w @nexo/runtime",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test -w @nexo/runtime",
+    "dist:win": "npm run build -w @nexo/web && npm run dist -w @nexo/desktop"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.7.3"
+  }
+}

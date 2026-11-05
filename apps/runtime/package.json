@@ -1,0 +1,26 @@
+{
+  "name": "@nexo/runtime",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Serviço local de execução do Nexo: processos, terminais, sessões do Claude Code, persistência SQLite",
+  "type": "module",
+  "main": "dist/runtime.cjs",
+  "scripts": {
+    "dev": "tsx watch --clear-screen=false src/cli.ts --dev",
+    "build": "node build.mjs",
+    "start": "node --no-warnings=ExperimentalWarning dist/cli.cjs",
+    "typecheck": "tsc -p .",
+    "test": "node --no-warnings=ExperimentalWarning --import tsx --test test/*.test.ts"
+  },
+  "dependencies": {
+    "@nexo/shared": "0.1.0",
+    "node-pty": "^1.1.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "@types/ws": "^8.5.14",
+    "esbuild": "^0.25.0",
+    "tsx": "^4.19.2"
+  }
+}

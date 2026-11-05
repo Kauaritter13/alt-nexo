@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Alt.">
+  <!-- Alt. — símbolo de app: indicador de digitação, três canais, um ponto. -->
+  <rect x="6" y="6" width="500" height="500" rx="112" fill="#0C0D0B" stroke="#F3EFE0" stroke-opacity="0.08" stroke-width="4"/>
+  <circle cx="144" cy="256" r="40" fill="#F3EFE0"/>
+  <circle cx="256" cy="256" r="40" fill="#F3EFE0"/>
+  <circle cx="368" cy="256" r="40" fill="#C9F24C"/>
+</svg>
