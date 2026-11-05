@@ -1,5 +1,30 @@
 # ALt.nexo
 
+[![CI](https://github.com/Kauaritter13/alt-nexo/actions/workflows/ci.yml/badge.svg)](https://github.com/Kauaritter13/alt-nexo/actions/workflows/ci.yml)
+[![Licença: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-blue)](LICENSE)
+[![PRs bem-vindos](https://img.shields.io/badge/PRs-bem--vindos-brightgreen)](CONTRIBUTING.md)
+
+**Um canvas infinito onde cada nó é uma sessão real do Claude Code.** Crie agentes, conecte um no outro e veja todos trabalhando ao mesmo tempo, cada um no seu terminal.
+
+![Tela do ALt.nexo](docs/screenshot.jpg)
+
+## Comece em 1 minuto
+
+Você precisa de Node 22.5+, Git e do [Claude Code](https://docs.claude.com/en/docs/claude-code/overview) instalado e autenticado.
+
+```bash
+git clone https://github.com/Kauaritter13/alt-nexo.git
+cd alt-nexo
+npm install
+npm start      # abra o link de pareamento que aparece no terminal
+```
+
+Testado no Windows. Quer ajudar? Leia o [guia de contribuição](CONTRIBUTING.md) e faça um fork.
+
+> O ALt.nexo é um projeto independente e não é afiliado à Anthropic. Claude Code é uma marca da Anthropic.
+
+## O que é
+
 IDE visual orientada a agentes: canvas infinito com **instâncias reais do Claude Code**, terminais, tarefas, notas, sites e arquivos — conectados por fluxos e salvos permanentemente por projeto.
 
 Uma única base de código atende dois formatos:
@@ -133,3 +158,7 @@ Atalhos: `Ctrl+Z/Y` desfazer/refazer · `Ctrl+C/V/D` copiar/colar/duplicar · `C
 - **Retomada** depende de o Claude Code ter gravado a transcrição. Se o runtime for iniciado de dentro de outra sessão do Claude Code, o ALt.nexo remove as variáveis herdadas (`CLAUDECODE`, `CLAUDE_CODE_CHILD_SESSION`, …) para não desligar a gravação.
 - Web e desktop compartilham o mesmo banco; use um de cada vez para evitar que um marque as sessões do outro como interrompidas.
 - Restauração de backup é manual (substituir `nexo.db` com o app fechado).
+
+## Licença
+
+[MIT](LICENSE)
