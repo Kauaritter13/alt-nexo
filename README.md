@@ -8,9 +8,15 @@
 
 ![Tela do ALt.nexo](docs/screenshot.jpg)
 
-## Comece em 1 minuto
+## Baixe para Windows
 
-Você precisa de Node 22.5+, Git e do [Claude Code](https://docs.claude.com/en/docs/claude-code/overview) instalado e autenticado.
+**[Baixar o instalador](https://github.com/Kauaritter13/alt-nexo/releases/latest/download/ALt.nexo-Setup-0.1.0.exe)** · [outras opções](https://github.com/Kauaritter13/alt-nexo/releases/latest)
+
+Você precisa do Git e do [Claude Code](https://docs.claude.com/en/docs/claude-code/overview) instalado e autenticado. O executável ainda não é assinado: se o Windows mostrar um alerta, clique em **Mais informações** e depois em **Executar assim mesmo**.
+
+## Rode pelo código
+
+Você precisa de Node 22.5+, Git e do Claude Code instalado e autenticado.
 
 ```bash
 git clone https://github.com/Kauaritter13/alt-nexo.git
